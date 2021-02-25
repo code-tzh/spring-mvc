@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class CarDaoImpl implements CarDao {
@@ -21,9 +20,9 @@ public class CarDaoImpl implements CarDao {
 
     @Override
     public List<Car> getCarList(Integer count) {
-        if (count == null) {
-        return carList;
+        if((count == null) || ( count > carList.size() )) {
+            count = carList.size();
         }
-        return count < 5 ? carList.stream().limit(count).collect(Collectors.toList()) : carList;
+        return carList.subList(0, count);
     }
 }
